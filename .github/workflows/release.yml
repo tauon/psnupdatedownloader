@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build for Linux and Windows
+    name: Build for Linux, Windows, and macOS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,6 +27,14 @@ jobs:
         run: |
           GOOS=windows GOARCH=amd64 go build -o psndownloader-windows-amd64.exe main.go
 
+      - name: Build binary for macOS amd64
+        run: |
+          GOOS=darwin GOARCH=amd64 go build -o psndownloader-macos-amd64 main.go
+
+      - name: Build binary for macOS arm64
+        run: |
+          GOOS=darwin GOARCH=arm64 go build -o psndownloader-macos-arm64 main.go
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -34,6 +42,8 @@ jobs:
           path: |
             psndownloader-linux-amd64
             psndownloader-windows-amd64.exe
+            psndownloader-macos-amd64
+            psndownloader-macos-arm64
 
   release:
     needs: build
@@ -45,10 +55,14 @@ jobs:
           name: binaries
           path: binaries
 
+      - name: Generate tag
+        id: tagger
+        run: echo "RELEASE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ env.RELEASE_TAG }}
           files: binaries/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
