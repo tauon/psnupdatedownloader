@@ -27,7 +27,7 @@ func main() {
 	flag.Parse()
 
 	if flag.NArg() != 1 {
-		fmt.Println("Usage: psn_downloader <gameID>")
+		fmt.Println("Usage: psnupdatedownloader <gameID>")
 		os.Exit(1)
 	}
 
