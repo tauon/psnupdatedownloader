@@ -26,6 +26,14 @@ For example, to download updates for the game with ID BCUS12345, you would run:
 
 The tool will create a directory with the game ID as its name and download all available update packages into this directory.
 
+## Notes
+
+Downloading and executing the release binaries on MacOS requrire the following steps to be completed first:
+
+` chmod +x psnupdatedownloader-macos-arm64`
+
+`xattr -d com.apple.quarantine ./psnupdatedownloader-macos-arm64`
+
 ## License
 
 `psnupdatedownloader` is licensed under the GNU General Public License v3.0 (GPLv3), a popular open-source license that ensures users are free to use, modify, and distribute the software.
