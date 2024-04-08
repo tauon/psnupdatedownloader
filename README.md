@@ -1,4 +1,4 @@
-# PSN Downloader
+# PSN Update Downloader
 
 `psnupdatedownloader` is a command-line tool written in Go that allows users to download update packages for PlayStation games by providing the game ID.
 
